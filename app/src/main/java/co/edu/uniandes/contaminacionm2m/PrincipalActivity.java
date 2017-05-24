@@ -181,6 +181,7 @@ public class PrincipalActivity extends AppCompatActivity
                                 String tiempo2=tiempoF.substring(0,tiempoF.length()-1)+last;
                                 arrayAdapter.add(tiempo2);
                                 arrayAdapter.addEvent(temporal2);
+
                                 //Log.d("ENTRO","Voy a notificar los datos");
                                 arrayAdapter.notifyDataSetChanged();
                             }
