@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="co.edu.uniandes.contaminacionm2m.PrincipalActivity"
+    tools:showIn="@layout/activity_principal">
+
+        <LinearLayout
+            android:id="@+id/samples_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/samples_fab"
+            android:orientation="vertical"
+            android:padding="@dimen/regular_offset">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/texto"/>
+        </LinearLayout>
+</RelativeLayout>
+

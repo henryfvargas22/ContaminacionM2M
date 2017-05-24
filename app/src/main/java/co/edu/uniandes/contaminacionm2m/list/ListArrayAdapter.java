@@ -72,4 +72,9 @@ public class ListArrayAdapter extends ArrayAdapter<String> {
     {
         events.clear();
     }
+
+    public List<event> getEvents()
+    {
+        return events;
+    }
 }

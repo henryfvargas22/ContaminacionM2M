@@ -24,7 +24,11 @@
         <activity
             android:name=".PrincipalActivity"
             android:label="Estado actual"
-            android:theme="@style/Theme.Main"></activity>
+            android:theme="@style/Theme.Main" />
+        <activity
+            android:name=".GraphsActivity"
+            android:label="Gráficas"
+            android:theme="@style/Theme.Main" />
     </application>
 
 </manifest>

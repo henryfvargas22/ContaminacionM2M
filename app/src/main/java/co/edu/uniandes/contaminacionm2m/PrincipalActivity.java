@@ -161,24 +161,25 @@ public class PrincipalActivity extends AppCompatActivity
                                 pop=pop.replace("\"","");
                                 pop=pop.replace("{","");
                                 pop=pop.replace("}","");
-                                //Log.d("ENTRO","Voy a agregar: "+pop);
+                                Log.d("ENTRO",pop);
                                 String[] variables=pop.split(",");
-                                String tipo=variables[0].split(":")[0];
-                                String tipo2=variables[1].split(":")[0];
+                                String tipo=variables[0].split(":")[0].trim();
+                                String tipo2=variables[1].split(":")[0].trim();
                                 String type=tipo.toUpperCase();
                                 String type2=tipo2.toUpperCase();
 
-                                int valor=Integer.parseInt(json.toString().replace("{","").replace("}","").replace(" ","").replace("\"","").split(":")[1]);
-
+                                int valor=Integer.parseInt(variables[0].split(":")[1].trim());
+                                int valor2=Integer.parseInt(variables[1].split(":")[1].trim());
 
                                 //Log.d("ENTRO","el valor es: "+valor);
                                 event temporal=new event(type,tiempoF,valor);
-                                event temporal2=new event(type2,tiempoF,valor);
+                                event temporal2=new event(type2,tiempoF,valor2);
                                 arrayAdapter.add(tiempoF);
                                 arrayAdapter.addEvent(temporal);
-                                int last=Integer.parseInt(tiempoF.charAt(tiempoF.length())+"");
+                                int tam=tiempoF.length();
+                                int last=Integer.parseInt(tiempoF.charAt(tam-1)+"");
                                 last++;
-                                String tiempo2=tiempoF.substring(0,tiempoF.length()-1)+last;
+                                String tiempo2=tiempoF.substring(0,(tam-1))+last;
                                 arrayAdapter.add(tiempo2);
                                 arrayAdapter.addEvent(temporal2);
 
@@ -235,6 +236,7 @@ public class PrincipalActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Intent intent=new Intent(this,MainActivity.class);
+            mRequestQueue.stop();
             startActivity(intent);
         }
 
@@ -247,6 +249,14 @@ public class PrincipalActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_slideshow) {
+            Intent intent=new Intent(this, GraphsActivity.class);
+            mRequestQueue.stop();
+            ArrayList<event> eventsF=new ArrayList<event>();
+            eventsF.addAll(arrayAdapter.getEvents());
+            intent.putExtra("lista",eventsF.size());
+            intent.putExtra("ip",ip);
+            intent.putExtra("puerto",puerto);
+            startActivity(intent);
 
         }  else if (id == R.id.nav_share) {
             AlertDialog alertDialog = new AlertDialog.Builder(PrincipalActivity.this).create();
