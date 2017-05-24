@@ -162,16 +162,25 @@ public class PrincipalActivity extends AppCompatActivity
                                 pop=pop.replace("{","");
                                 pop=pop.replace("}","");
                                 //Log.d("ENTRO","Voy a agregar: "+pop);
-                                String tipo=pop.split(":")[0];
+                                String[] variables=pop.split(",");
+                                String tipo=variables[0].split(":")[0];
+                                String tipo2=variables[1].split(":")[0];
                                 String type=tipo.toUpperCase();
+                                String type2=tipo2.toUpperCase();
 
                                 int valor=Integer.parseInt(json.toString().replace("{","").replace("}","").replace(" ","").replace("\"","").split(":")[1]);
 
 
                                 //Log.d("ENTRO","el valor es: "+valor);
                                 event temporal=new event(type,tiempoF,valor);
+                                event temporal2=new event(type2,tiempoF,valor);
                                 arrayAdapter.add(tiempoF);
                                 arrayAdapter.addEvent(temporal);
+                                int last=Integer.parseInt(tiempoF.charAt(tiempoF.length())+"");
+                                last++;
+                                String tiempo2=tiempoF.substring(0,tiempoF.length()-1)+last;
+                                arrayAdapter.add(tiempo2);
+                                arrayAdapter.addEvent(temporal2);
                                 //Log.d("ENTRO","Voy a notificar los datos");
                                 arrayAdapter.notifyDataSetChanged();
                             }
