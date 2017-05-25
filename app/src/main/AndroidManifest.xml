@@ -37,11 +37,10 @@
             android:theme="@style/Theme.Main" />
         <activity
             android:name=".EventActivity"
-            android:label="Evento"
             android:configChanges="orientation"
+            android:label="Evento"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Main">
-        </activity>
+            android:theme="@style/Theme.Main"></activity>
     </application>
 
 </manifest>

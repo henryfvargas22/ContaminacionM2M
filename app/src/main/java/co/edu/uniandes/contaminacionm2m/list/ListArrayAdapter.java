@@ -43,7 +43,7 @@ public class ListArrayAdapter extends ArrayAdapter<String> {
         // Change icon based on name
         String type = events.get(position).getType();
 
-        System.out.println(type);
+        //System.out.println(type);
 
         if (type.contains(event.FLUSH)) {
             imageView.setImageResource(R.drawable.drop);

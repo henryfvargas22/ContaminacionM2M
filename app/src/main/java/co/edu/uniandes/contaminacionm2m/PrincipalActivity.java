@@ -159,8 +159,9 @@ public class PrincipalActivity extends AppCompatActivity
                                 JSONObject content=temp.getJSONObject("content");
                                 String time=temp.getString("creationTime");
                                 String[] tiempo=time.split(":");
-                                String tiempoF=tiempo[0].replace("T"," ")+":"+tiempo[1];
-                                //Log.d("ENTRO","el tiempo es: "+tiempoF);
+                                String segs=tiempo[2];
+                                String tiempoF=tiempo[0].replace("T"," ")+":"+tiempo[1]+":"+segs.substring(0,2);
+                                //Log.d("ENTRO","el tiempo es: "+segs);
                                 String resp=content.getString("binaryContent");
                                 byte[] decoded= Base64.decode(resp.getBytes(), Base64.DEFAULT);
                                 String pop=new String(decoded);
@@ -169,7 +170,7 @@ public class PrincipalActivity extends AppCompatActivity
                                 pop=pop.replace("\"","");
                                 pop=pop.replace("{","");
                                 pop=pop.replace("}","");
-                                Log.d("ENTRO",pop);
+                                //Log.d("ENTRO",pop);
                                 String[] variables=pop.split(",");
                                 String tipo=variables[0].split(":")[0].trim();
                                 String tipo2=variables[1].split(":")[0].trim();
@@ -186,6 +187,7 @@ public class PrincipalActivity extends AppCompatActivity
                                 arrayAdapter.addEvent(temporal);
                                 int tam=tiempoF.length();
                                 int last=Integer.parseInt(tiempoF.charAt(tam-1)+"");
+                                if(last!=9)
                                 last++;
                                 String tiempo2=tiempoF.substring(0,(tam-1))+last;
                                 arrayAdapter.add(tiempo2);
@@ -261,7 +263,7 @@ public class PrincipalActivity extends AppCompatActivity
             mRequestQueue.stop();
             ArrayList<event> eventsF=new ArrayList<event>();
             eventsF.addAll(arrayAdapter.getEvents());
-            intent.putExtra("lista",eventsF.size());
+            intent.putExtra("lista",eventsF);
             intent.putExtra("ip",ip);
             intent.putExtra("puerto",puerto);
             startActivity(intent);
