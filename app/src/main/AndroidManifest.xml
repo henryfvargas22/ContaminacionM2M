@@ -14,7 +14,9 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/Base.Theme">
+            android:theme="@style/Base.Theme"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,11 +26,15 @@
         <activity
             android:name=".PrincipalActivity"
             android:label="Estado actual"
-            android:theme="@style/Theme.Main" />
+            android:theme="@style/Theme.Main"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".GraphsActivity"
             android:label="Gráficas"
-            android:theme="@style/Theme.Main" />
+            android:theme="@style/Theme.Main"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
