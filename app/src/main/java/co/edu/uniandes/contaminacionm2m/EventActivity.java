@@ -22,6 +22,7 @@ public class EventActivity extends AppCompatActivity {
     TextView textType;
     TextView textTime;
     TextView textAlert;
+    TextView textValor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class EventActivity extends AppCompatActivity {
         textTime=(TextView)findViewById(R.id.text_timeR);
         textType=(TextView)findViewById(R.id.text_typeR);
         textAlert=(TextView)findViewById(R.id.text_alertR);
+        textValor=(TextView)findViewById(R.id.text_valorR);
 
         textTime.setText(evento.getTime());
         if(evento.getType().equals(event.FLUSH))
@@ -60,6 +62,8 @@ public class EventActivity extends AppCompatActivity {
         {
             textAlert.setText("Normal");
         }
+
+        textValor.setText(evento.toString());
     }
 
     @Override
@@ -94,6 +98,9 @@ public class EventActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        Intent intent=new Intent(this,PrincipalActivity.class);
+        intent.putExtra("ip",ip);
+        intent.putExtra("puerto",puerto);
+        startActivity(intent);
     }
 }

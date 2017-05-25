@@ -49,14 +49,14 @@ public class ListArrayAdapter extends ArrayAdapter<String> {
             imageView.setImageResource(R.drawable.drop);
             if(events.get(position).isAlert())
             {
-                textView.setText("Alert "+values.get(position));
+                textView.setText("Alerta: "+values.get(position));
                 textView.setTextColor(Color.RED);
             }
         } else {
             imageView.setImageResource(R.drawable.match);
             if(events.get(position).isAlert())
             {
-                textView.setText("Alert "+values.get(position));
+                textView.setText("Alerta: "+values.get(position));
                 textView.setTextColor(Color.RED);
             }
         }

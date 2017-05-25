@@ -9,5 +9,11 @@
     tools:showIn="@layout/activity_principal"
     android:id="@+id/grupo">
 
+    <com.github.mikephil.charting.charts.PieChart
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/pie1"
+        android:visibility="invisible"/>
+
 </LinearLayout>
 

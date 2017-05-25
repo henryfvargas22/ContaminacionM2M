@@ -10,7 +10,7 @@ public class event implements Serializable
 {
     public final static String FLUSH="FLUSH";
     public final static String SMOKE="SMOKE";
-    public final static int FLUSH_ALERT=80;
+    public final static int FLUSH_ALERT=60;
     public final static int SMOKE_ALERT=110;
 
     private String type;
@@ -56,4 +56,6 @@ public class event implements Serializable
     {
         return value+"";
     }
+
+    public int getValue() {return value;}
 }

@@ -112,61 +112,53 @@ public class GraphsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        Intent intent=new Intent(this,PrincipalActivity.class);
+        intent.putExtra("ip",ip);
+        intent.putExtra("puerto",puerto);
+        startActivity(intent);
     }
 
     private void pieChart()
     {
-        final ViewGroup viewF=(ViewGroup)findViewById(R.id.viewGroup);
+        View view=(View)findViewById(R.id.pie1);
 
-        final ViewGroup viewGroup = (ViewGroup)findViewById(R.id.grupo);
-        viewGroup.removeAllViews();
-        View view=View.inflate(this,R.layout.pie_chart,null);
-
-        viewGroup.addView(View.inflate(this,R.layout.pie_chart,null));
+        view.setVisibility(View.VISIBLE);
 
         int flush=0;
-        int smoke=0;
+        int flushAlert=0;
         for(int i=0;i<eventos.size();i++)
         {
             if(eventos.get(i).getType().equals(event.FLUSH))
             {
-                flush++;
-                Log.d("Entro","El evento es tipo FLUSH");
-            }
-            else
-            {
-                smoke++;
+                if(eventos.get(i).isAlert())
+                {
+                    flushAlert++;
+                }
+                else
+                {
+                    flush++;
+                }
             }
         }
-        int total=flush+smoke;
+        int total=flush+flushAlert;
         double pFlush=(double) flush/total;
-        double pSmoke=(double) smoke/total;
+        double pAlert=(double) flushAlert/total;
 
         pFlush=pFlush*100;
-        pSmoke=pSmoke*100;
-
-        Log.d("dou1",pFlush+"");
-        Log.d("dou2",pSmoke+"");
+        pAlert=pAlert*100;
 
         pieChart=(PieChart) findViewById(R.id.pie1);
         pieChart.setTouchEnabled(false);
 
         List<PieEntry> entries = new ArrayList<>();
 
-        PieEntry pieEntry1=new PieEntry((float)pFlush, "Flujo");
-        PieEntry pieEntry2=new PieEntry((float)pSmoke, "Humo");
-
-        float en1=pieEntry1.getValue();
-        float en2=pieEntry2.getValue();
-
-        Log.d("Float1",en1+"");
-        Log.d("Float2",en2+"");
+        PieEntry pieEntry1=new PieEntry((float)pFlush, "Flujo normal");
+        PieEntry pieEntry2=new PieEntry((float)pAlert, "Flujo alerta");
 
         entries.add(pieEntry1);
         entries.add(pieEntry2);
 
-        PieDataSet set = new PieDataSet(entries, "Resultados del monitoreo");
+        PieDataSet set = new PieDataSet(entries, "Monitoreo de Flujo");
 
         ArrayList<Integer> colors = new ArrayList<Integer>();
 

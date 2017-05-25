@@ -51,6 +51,18 @@
                 android:padding="20dip"
                 android:text="prueba" />
         </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <TextView android:id="@+id/text_valor"
+                android:gravity="center"
+                android:padding="20dip"
+                android:text="Valor del sensor" />
+            <TextView android:id="@+id/text_valorR"
+                android:gravity="center"
+                android:padding="20dip"
+                android:text="prueba" />
+        </TableRow>
     </TableLayout>
 
 
