@@ -17,8 +17,9 @@ public class event implements Serializable
     private String time;
     private int value;
     private boolean alert;
+    private int id;
 
-    public event(String type, String time,int value)
+    public event(String type, String time,int value, int id)
     {
         this.time=time;
         this.type=type;
@@ -35,6 +36,7 @@ public class event implements Serializable
         {
             alert=false;
         }
+        this.id=id;
     }
 
     public String getType()
@@ -58,4 +60,6 @@ public class event implements Serializable
     }
 
     public int getValue() {return value;}
+
+    public int getId() {return id;}
 }

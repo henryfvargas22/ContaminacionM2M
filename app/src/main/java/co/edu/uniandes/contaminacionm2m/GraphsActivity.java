@@ -16,8 +16,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -34,6 +41,7 @@ public class GraphsActivity extends AppCompatActivity {
     String ip;
     String puerto;
     PieChart pieChart;
+    LineChart lineChart;
     List<event> eventos;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -42,13 +50,13 @@ public class GraphsActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_flush:
-                    pieChart();
+                    lineChart();
                     return true;
                 case R.id.navigation_all:
-                    //mTextMessage.setText(R.string.title_dashboard);
+                    pieChart();
                     return true;
                 case R.id.navigation_smoke:
-                    //mTextMessage.setText(R.string.title_notifications);
+                    lineChart2();
                     return true;
             }
             return false;
@@ -77,7 +85,7 @@ public class GraphsActivity extends AppCompatActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        pieChart();
+        lineChart();
     }
 
     @Override
@@ -120,31 +128,31 @@ public class GraphsActivity extends AppCompatActivity {
 
     private void pieChart()
     {
+        View line=(View)findViewById(R.id.chartFlujo);
+        line.setVisibility(View.GONE);
+
         View view=(View)findViewById(R.id.pie1);
 
         view.setVisibility(View.VISIBLE);
 
-        int flush=0;
-        int flushAlert=0;
+        int events=0;
+        int eventsAlert=0;
         for(int i=0;i<eventos.size();i++)
         {
-            if(eventos.get(i).getType().equals(event.FLUSH))
-            {
                 if(eventos.get(i).isAlert())
                 {
-                    flushAlert++;
+                    eventsAlert++;
                 }
                 else
                 {
-                    flush++;
+                    events++;
                 }
-            }
         }
-        int total=flush+flushAlert;
-        double pFlush=(double) flush/total;
-        double pAlert=(double) flushAlert/total;
+        int total=events+eventsAlert;
+        double pEvents=(double) events/total;
+        double pAlert=(double) eventsAlert/total;
 
-        pFlush=pFlush*100;
+        pEvents=pEvents*100;
         pAlert=pAlert*100;
 
         pieChart=(PieChart) findViewById(R.id.pie1);
@@ -152,13 +160,16 @@ public class GraphsActivity extends AppCompatActivity {
 
         List<PieEntry> entries = new ArrayList<>();
 
-        PieEntry pieEntry1=new PieEntry((float)pFlush, "Flujo normal");
-        PieEntry pieEntry2=new PieEntry((float)pAlert, "Flujo alerta");
+        PieEntry pieEntry1=new PieEntry((float)pEvents, "Eventos normales");
+        PieEntry pieEntry2=new PieEntry((float)pAlert, "Eventos alarmantes");
 
         entries.add(pieEntry1);
         entries.add(pieEntry2);
 
-        PieDataSet set = new PieDataSet(entries, "Monitoreo de Flujo");
+        PieDataSet set = new PieDataSet(entries, "Monitoreo de Alertas");
+        Description description=new Description();
+        description.setText("Nivel de alertas en el tiempo");
+        pieChart.setDescription(description);
 
         ArrayList<Integer> colors = new ArrayList<Integer>();
 
@@ -188,5 +199,73 @@ public class GraphsActivity extends AppCompatActivity {
 
         pieChart.setData(data);
         pieChart.invalidate();
+    }
+
+    private void lineChart() {
+        View pie = (View) findViewById(R.id.pie1);
+        pie.setVisibility(View.GONE);
+
+        View view = (View) findViewById(R.id.chartFlujo);
+        view.setVisibility(View.VISIBLE);
+
+        lineChart = (LineChart) findViewById(R.id.chartFlujo);
+        Description description=new Description();
+        description.setText("Flujo del agua a través del tiempo");
+        lineChart.setDescription(description);
+
+        List<Entry> entries = new ArrayList<Entry>();
+
+        for (int i = 0; i < eventos.size(); i++) {
+            if (eventos.get(i).getType().equals(event.FLUSH)) {
+                Entry entry = new Entry(eventos.get(i).getId(), eventos.get(i).getValue());
+                entries.add(entry);
+                Log.d("Evento", "x: " + entry.getX() + " y: " + entry.getY());
+            }
+        }
+
+        LineDataSet dataSet = new LineDataSet(entries, "Flujo medido");
+        dataSet.setDrawCircles(true);// add entries to dataset
+        dataSet.setDrawFilled(true);
+        dataSet.setColor(Color.BLUE);
+        dataSet.setValueTextColor(Color.BLACK);
+
+        LineData lineData = new LineData(dataSet);
+        lineChart.setData(lineData);
+
+        lineChart.animateX(1000);
+    }
+
+    private void lineChart2() {
+        View pie = (View) findViewById(R.id.pie1);
+        pie.setVisibility(View.GONE);
+
+        View view = (View) findViewById(R.id.chartFlujo);
+        view.setVisibility(View.VISIBLE);
+
+        lineChart = (LineChart) findViewById(R.id.chartFlujo);
+        Description description=new Description();
+        description.setText("Flujo de humo a través del tiempo");
+        lineChart.setDescription(description);
+
+        List<Entry> entries = new ArrayList<Entry>();
+
+        for (int i = 0; i < eventos.size(); i++) {
+            if (eventos.get(i).getType().equals(event.SMOKE)) {
+                Entry entry = new Entry(eventos.get(i).getId(), eventos.get(i).getValue());
+                entries.add(entry);
+                Log.d("Evento", "x: " + entry.getX() + " y: " + entry.getY());
+            }
+        }
+
+        LineDataSet dataSet = new LineDataSet(entries, "Flujo de humo medido");
+        dataSet.setDrawCircles(true);// add entries to dataset
+        dataSet.setDrawFilled(true);
+        dataSet.setColor(Color.BLUE);
+        dataSet.setValueTextColor(Color.BLACK);
+
+        LineData lineData = new LineData(dataSet);
+        lineChart.setData(lineData);
+
+        lineChart.animateX(1000);
     }
 }

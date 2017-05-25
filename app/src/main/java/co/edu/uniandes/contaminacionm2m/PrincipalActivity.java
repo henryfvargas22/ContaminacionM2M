@@ -59,6 +59,7 @@ public class PrincipalActivity extends AppCompatActivity
     String url;
     Context context;
     Handler autoUpdateHandler;
+    int contador;
 
     private ListView lv;
     private ListArrayAdapter arrayAdapter;
@@ -153,6 +154,7 @@ public class PrincipalActivity extends AppCompatActivity
                             JSONArray contentInstances=collection.getJSONArray("contentInstance");
                             arrayAdapter.clear();
                             arrayAdapter.clearEvents();
+                            contador=0;
                             for(int i=0;i<contentInstances.length();i++)
                             {
                                 JSONObject temp=contentInstances.getJSONObject(i);
@@ -181,10 +183,13 @@ public class PrincipalActivity extends AppCompatActivity
                                 int valor2=Integer.parseInt(variables[1].split(":")[1].trim());
 
                                 //Log.d("ENTRO","el valor es: "+valor);
-                                event temporal=new event(type,tiempoF,valor);
-                                event temporal2=new event(type2,tiempoF,valor2);
-                                arrayAdapter.add(tiempoF);
-                                arrayAdapter.addEvent(temporal);
+                                if(valor!=0) {
+                                    event temporal = new event(type, tiempoF, valor, contador++);
+                                    arrayAdapter.add(tiempoF);
+                                    arrayAdapter.addEvent(temporal);
+                                }
+                                if(valor2!=0){
+                                    event temporal2 = new event(type2, tiempoF, valor2, contador++);
                                 int tam=tiempoF.length();
                                 int last=Integer.parseInt(tiempoF.charAt(tam-1)+"");
                                 if(last!=9)
@@ -192,6 +197,7 @@ public class PrincipalActivity extends AppCompatActivity
                                 String tiempo2=tiempoF.substring(0,(tam-1))+last;
                                 arrayAdapter.add(tiempo2);
                                 arrayAdapter.addEvent(temporal2);
+                                }
 
                                 //Log.d("ENTRO","Voy a notificar los datos");
                                 arrayAdapter.notifyDataSetChanged();
