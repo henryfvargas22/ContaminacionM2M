@@ -77,4 +77,9 @@ public class ListArrayAdapter extends ArrayAdapter<String> {
     {
         return events;
     }
+
+    public event getEvent(int position)
+    {
+        return events.get(position);
+    }
 }

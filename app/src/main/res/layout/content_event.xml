@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="co.edu.uniandes.contaminacionm2m.EventActivity"
+    tools:showIn="@layout/activity_event">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:shrinkColumns="*"
+        android:stretchColumns="*">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <TextView android:id="@+id/text_time"
+                android:gravity="center"
+                android:padding="20dip"
+                android:text="Tiempo de ocurrencia" />
+            <TextView android:id="@+id/text_timeR"
+                android:gravity="center"
+                android:padding="20dip"
+                android:text="prueba" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <TextView android:id="@+id/text_type"
+                android:gravity="center"
+                android:padding="20dip"
+                android:text="Tipo de evento" />
+            <TextView android:id="@+id/text_typeR"
+                android:gravity="center"
+                android:padding="20dip"
+                android:text="prueba" />
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <TextView android:id="@+id/text_alert"
+                android:gravity="center"
+                android:padding="20dip"
+                android:text="Nivel de alerta" />
+            <TextView android:id="@+id/text_alertR"
+                android:gravity="center"
+                android:padding="20dip"
+                android:text="prueba" />
+        </TableRow>
+    </TableLayout>
+
+
+
+</android.support.v7.widget.LinearLayoutCompat>

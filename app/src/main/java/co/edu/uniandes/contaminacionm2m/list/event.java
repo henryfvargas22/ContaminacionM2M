@@ -1,10 +1,12 @@
 package co.edu.uniandes.contaminacionm2m.list;
 
+import java.io.Serializable;
+
 /**
  * Created by henryfabianvargas on 22/05/17.
  */
 
-public class event
+public class event implements Serializable
 {
     public final static String FLUSH="FLUSH";
     public final static String SMOKE="SMOKE";

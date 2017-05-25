@@ -79,7 +79,7 @@ public class PrincipalActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Intent intent=getIntent();
+        final Intent intent=getIntent();
         ip=intent.getStringExtra("ip");
         puerto=intent.getStringExtra("puerto");
         this.context=getApplicationContext();
@@ -125,7 +125,15 @@ public class PrincipalActivity extends AppCompatActivity
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent1=new Intent(PrincipalActivity.this,EventActivity.class);
+                event test=arrayAdapter.getEvent(i);
+                intent1.putExtra("ip",ip);
+                intent1.putExtra("puerto",puerto);
+                intent1.putExtra("event",test);
 
+                mRequestQueue.stop();
+
+                startActivity(intent1);
             }
         });
     }
